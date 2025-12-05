@@ -12,7 +12,50 @@ const {
   LOGIN_API,
   RESETPASSTOKEN_API,
   RESETPASSWORD_API,
+  SOCIAL_LOGIN_API
 } = endpoints
+
+// ================ Social Login (Google/Facebook) ================
+export function socialLogin(email, firstName, lastName, image, navigate) {
+  return async (dispatch) => {
+    const toastId = toast.loading("Loading...");
+    dispatch(setLoading(true));
+
+    try {
+      const response = await apiConnector("POST", SOCIAL_LOGIN_API, {
+        email,
+        firstName,
+        lastName,
+        image
+      })
+
+      console.log("SOCIAL LOGIN API RESPONSE............", response);
+
+      if (!response.data.success) {
+        throw new Error(response.data.message)
+      }
+
+      toast.success("Login Successful")
+      dispatch(setToken(response.data.token))
+
+      const userImage = response.data?.user?.image
+        ? response.data.user.image
+        : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`
+
+      dispatch(setUser({ ...response.data.user, image: userImage }));
+
+      localStorage.setItem("token", JSON.stringify(response.data?.token));
+      localStorage.setItem("user", JSON.stringify({ ...response.data.user, image: userImage }));
+
+      navigate("/dashboard/my-profile");
+    } catch (error) {
+      console.log("SOCIAL LOGIN API ERROR.......", error)
+      toast.error(error.response?.data?.message)
+    }
+    dispatch(setLoading(false))
+    toast.dismiss(toastId)
+  }
+}
 
 // ================ send Otp ================
 export function sendOtp(email, navigate) {
