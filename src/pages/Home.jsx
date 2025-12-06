@@ -222,7 +222,7 @@ const Home = () => {
                         </h2>
                         <Course_Slider Courses={CatalogPageData?.selectedCategory?.courses?.length ? CatalogPageData?.selectedCategory?.courses : [
                             {
-                                _id: "693347c2ea8447a17a9664eb",
+                                _id: "693377effde4569764f091a5",
                                 courseName: "Python for Beginners",
                                 price: 1999,
                                 thumbnail: backgroundImg1,
@@ -230,7 +230,7 @@ const Home = () => {
                                 ratingAndReviews: [{ rating: 4.5 }, { rating: 5 }],
                             },
                             {
-                                _id: "693347c2ea8447a17a9664eb",
+                                _id: "693377effde4569764f091a5",
                                 courseName: "Web Development Bootcamp",
                                 price: 2499,
                                 thumbnail: backgroundImg2,
@@ -238,7 +238,7 @@ const Home = () => {
                                 ratingAndReviews: [{ rating: 4.0 }],
                             },
                             {
-                                _id: "693347c2ea8447a17a9664eb",
+                                _id: "693377effde4569764f091a5",
                                 courseName: "Data Science with AI",
                                 price: 2999,
                                 thumbnail: backgroundImg3,
@@ -246,7 +246,7 @@ const Home = () => {
                                 ratingAndReviews: [{ rating: 4.8 }, { rating: 4.9 }],
                             },
                             {
-                                _id: "693347c2ea8447a17a9664eb",
+                                _id: "693377effde4569764f091a5",
                                 courseName: "Machine Learning with Python",
                                 price: 3499,
                                 thumbnail: backgroundImg4,
@@ -261,7 +261,7 @@ const Home = () => {
                         </h2>
                         <Course_Slider Courses={CatalogPageData?.mostSellingCourses?.length ? CatalogPageData?.mostSellingCourses : [
                             {
-                                _id: "693347c2ea8447a17a9664eb",
+                                _id: "693377effde4569764f091a5",
                                 courseName: "Java Masterclass",
                                 price: 1599,
                                 thumbnail: backgroundImg5,
@@ -269,7 +269,7 @@ const Home = () => {
                                 ratingAndReviews: [{ rating: 4.6 }],
                             },
                             {
-                                _id: "693347c2ea8447a17a9664eb",
+                                _id: "693377effde4569764f091a5",
                                 courseName: "C++ Comprehensive",
                                 price: 1899,
                                 thumbnail: backgroundImg6,
@@ -277,7 +277,7 @@ const Home = () => {
                                 ratingAndReviews: [{ rating: 4.7 }, { rating: 4.5 }],
                             },
                             {
-                                _id: "693347c2ea8447a17a9664eb",
+                                _id: "693377effde4569764f091a5",
                                 courseName: "React JS Zero to Hero",
                                 price: 2299,
                                 thumbnail: backgroundImg7,
@@ -285,7 +285,7 @@ const Home = () => {
                                 ratingAndReviews: [{ rating: 4.9 }],
                             },
                             {
-                                _id: "693347c2ea8447a17a9664eb",
+                                _id: "693377effde4569764f091a5",
                                 courseName: "Node.js Backend Guide",
                                 price: 1799,
                                 thumbnail: backgroundImg8,
