@@ -27,6 +27,7 @@ function VerifyEmail() {
     e.preventDefault();
     const { accountType, firstName, lastName, email, password, confirmPassword, } = signupData;
 
+    console.log("VerifyEmail: Signup Data before dispatch:", signupData);
     dispatch(signUp(accountType, firstName, lastName, email, password, confirmPassword, otp, navigate));
   };
 

@@ -95,6 +95,7 @@ export function signUp(accountType, firstName, lastName, email, password, confir
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));
     try {
+      console.log("authAPI: signUp called with accountType:", accountType);
       const response = await apiConnector("POST", SIGNUP_API, {
         accountType,
         firstName,
