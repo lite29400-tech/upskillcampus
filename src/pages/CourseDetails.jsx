@@ -63,7 +63,7 @@ function CourseDetails() {
   // Calculating Avg Review count
   const [avgReviewCount, setAvgReviewCount] = useState(0)
   useEffect(() => {
-    const count = GetAvgRating(response?.data?.courseDetails.ratingAndReviews)
+    const count = GetAvgRating(response?.data?.courseDetails?.ratingAndReviews)
     setAvgReviewCount(count)
   }, [response])
   // console.log("avgReviewCount: ", avgReviewCount)
@@ -223,10 +223,10 @@ function CourseDetails() {
               <div className="text-md flex flex-wrap items-center gap-2">
                 <span className="text-yellow-25">{avgReviewCount}</span>
                 <RatingStars Review_Count={avgReviewCount} Star_Size={24} />
-                <span>{`(${ratingAndReviews.length} reviews)`}</span>
-                <span>{`${studentsEnrolled.length} students enrolled`}</span>
+                <span>{`(${ratingAndReviews?.length || 0} reviews)`}</span>
+                <span>{`${studentsEnrolled?.length || 0} students enrolled`}</span>
               </div>
-              <p className="capitalize "> Created By <span className="font-semibold underline">{instructor.firstName} {instructor.lastName}</span></p>
+              <p className="capitalize "> Created By <span className="font-semibold underline">{instructor?.firstName} {instructor?.lastName}</span></p>
               <div className="flex flex-wrap gap-5 text-lg">
                 <p className="flex items-center gap-2">
                   {" "}
@@ -328,12 +328,12 @@ function CourseDetails() {
               <p className="text-[28px] font-semibold">Author</p>
               <div className="flex items-center gap-4 py-4">
                 <Img
-                  src={instructor.image}
+                  src={instructor?.image || `https://api.dicebear.com/5.x/initials/svg?seed=${instructor?.firstName} ${instructor?.lastName}`}
                   alt="Author"
                   className="h-14 w-14 rounded-full object-cover"
                 />
                 <div>
-                  <p className="text-lg capitalize flex items-center gap-2 font-semibold">{`${instructor.firstName} ${instructor.lastName}`}
+                  <p className="text-lg capitalize flex items-center gap-2 font-semibold">{`${instructor?.firstName} ${instructor?.lastName}`}
                     <span><MdOutlineVerified className='w-5 h-5 text-[#00BFFF]' /></span>
                   </p>
                   <p className="text-richblack-50">{instructor?.additionalDetails?.about}</p>
