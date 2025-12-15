@@ -40,6 +40,7 @@ export default function CourseInformationForm() {
       setValue("courseTitle", course.courseName)
       setValue("courseShortDesc", course.courseDescription)
       setValue("coursePrice", course.price)
+      setValue("courseType", course.price === 0 ? "Free" : "Paid")
       setValue("courseTags", course.tag)
       setValue("courseBenefits", course.whatYouWillLearn)
       setValue("courseCategory", course.category)
@@ -184,8 +185,46 @@ export default function CourseInformationForm() {
         )}
       </div>
 
-      {/* Course Price */}
+      {/* Course Type (Free/Paid) */}
       <div className="flex flex-col space-y-2">
+        <label className="text-sm text-richblack-5">
+          Course Type <sup className="text-pink-200">*</sup>
+        </label>
+        <div className="flex gap-x-4">
+          <div className="flex gap-x-2">
+            <input
+              type="radio"
+              id="paid"
+              value="Paid"
+              className="cursor-pointer"
+              {...register("courseType", { required: true })}
+              defaultChecked={true}
+              onChange={(e) => {
+                setValue("courseType", e.target.value)
+              }}
+            />
+            <label htmlFor="paid" className="text-richblack-5 cursor-pointer">Paid</label>
+          </div>
+          <div className="flex gap-x-2">
+            <input
+              type="radio"
+              id="free"
+              value="Free"
+              className="cursor-pointer"
+              {...register("courseType", { required: true })}
+              onChange={(e) => {
+                setValue("courseType", e.target.value)
+                setValue("coursePrice", 0)
+              }}
+            />
+            <label htmlFor="free" className="text-richblack-5 cursor-pointer">Free</label>
+          </div>
+        </div>
+      </div>
+
+      {/* Course Price */}
+      {/* Only show price input if course is Paid */}
+      <div className={`flex flex-col space-y-2 ${getValues("courseType") === "Free" ? "hidden" : "block"}`}>
         <label className="text-sm text-richblack-5" htmlFor="coursePrice">
           Course Price <sup className="text-pink-200">*</sup>
         </label>
@@ -194,7 +233,10 @@ export default function CourseInformationForm() {
             id="coursePrice"
             placeholder="Enter Course Price"
             {...register("coursePrice", {
-              required: true,
+              required: {
+                value: getValues("courseType") === "Paid",
+                message: "Course Price is required for Paid courses"
+              },
               valueAsNumber: true,
               pattern: {
                 value: /^(0|[1-9]\d*)(\.\d+)?$/,
@@ -207,7 +249,7 @@ export default function CourseInformationForm() {
         </div>
         {errors.coursePrice && (
           <span className="ml-2 text-xs tracking-wide text-pink-200">
-            Course Price is required
+            {errors.coursePrice.message}
           </span>
         )}
       </div>

@@ -13,7 +13,7 @@ import CourseAccordionBar from "../components/core/Course/CourseAccordionBar"
 import CourseDetailsCard from "../components/core/Course/CourseDetailsCard"
 import { formatDate } from "../services/formatDate"
 import { fetchCourseDetails } from "../services/operations/courseDetailsAPI"
-import { buyCourse } from "../services/operations/studentFeaturesAPI"
+import { buyCourse, enrollFreeCourse } from "../services/operations/studentFeaturesAPI"
 
 import GetAvgRating from "../utils/avgRating"
 import { ACCOUNT_TYPE } from './../utils/constants';
@@ -140,7 +140,11 @@ function CourseDetails() {
   const handleBuyCourse = () => {
     if (token) {
       const coursesId = [courseId]
-      buyCourse(token, coursesId, user, navigate, dispatch)
+      if (price === 0) {
+        enrollFreeCourse(token, courseId, user, navigate, dispatch)
+      } else {
+        buyCourse(token, coursesId, user, navigate, dispatch)
+      }
       return
     }
     setConfirmationModal({
@@ -220,7 +224,9 @@ function CourseDetails() {
             {/* will appear only for small size */}
             <div className="flex w-full flex-col gap-4 border-y border-y-richblack-500 py-4 lg:hidden">
               <p className="space-x-3 pb-4 text-3xl font-semibold text-richblack-5">Rs. {price}</p>
-              <button className="yellowButton" onClick={handleBuyCourse}>Buy Now</button>
+              <button className="yellowButton" onClick={handleBuyCourse}>
+                {user && course?.studentsEnrolled.includes(user?._id) ? "Go to Course" : price === 0 ? "Get For Free" : "Buy Now"}
+              </button>
               <button onClick={handleAddToCart} className="blackButton">Add to Cart</button>
             </div>
           </div>

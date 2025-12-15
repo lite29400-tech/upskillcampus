@@ -6,7 +6,12 @@ import { setPaymentLoading } from "../../slices/courseSlice";
 import { resetCart } from "../../slices/cartSlice";
 
 
-const { COURSE_PAYMENT_API, COURSE_VERIFY_API, SEND_PAYMENT_SUCCESS_EMAIL_API } = studentEndpoints;
+const {
+    COURSE_PAYMENT_API,
+    COURSE_VERIFY_API,
+    SEND_PAYMENT_SUCCESS_EMAIL_API,
+    COURSE_ENROLL_FREE_API
+} = studentEndpoints;
 
 function loadScript(src) {
     return new Promise((resolve) => {
@@ -89,6 +94,26 @@ export async function buyCourse(token, coursesId, userDetails, navigate, dispatc
 
 
 // ================ send Payment Success Email ================
+export async function enrollFreeCourse(token, courseId, user, navigate, dispatch) {
+    const toastId = toast.loading("Enrolling...");
+    try {
+        const response = await apiConnector("POST", COURSE_ENROLL_FREE_API,
+            { courseId },
+            { Authorization: `Bearer ${token}` });
+
+        if (!response.data.success) {
+            throw new Error(response.data.message);
+        }
+
+        toast.success("Enrolled Successfully");
+        navigate("/dashboard/enrolled-courses");
+    } catch (error) {
+        console.log("FREE ENROLLMENT API ERROR............", error);
+        toast.error(error.response?.data?.message || "Could not enroll");
+    }
+    toast.dismiss(toastId);
+}
+
 async function sendPaymentSuccessEmail(response, amount, token) {
     try {
         await apiConnector("POST", SEND_PAYMENT_SUCCESS_EMAIL_API, {
