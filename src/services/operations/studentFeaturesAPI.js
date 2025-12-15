@@ -104,15 +104,13 @@ export async function enrollFreeCourse(token, courseId, user, navigate, dispatch
         if (!response.data.success) {
             throw new Error(response.data.message);
         }
-        toast.success("Enrolled Successfully", {
-            id: toastId,
-        });
+        toast.dismiss(toastId);
+        toast.success("Enrolled Successfully");
         navigate("/dashboard/enrolled-courses");
     } catch (error) {
+        toast.dismiss(toastId);
         console.log("FREE ENROLLMENT API ERROR............", error);
-        toast.error(error.response?.data?.message || "Could not enroll", {
-            id: toastId,
-        });
+        toast.error(error.response?.data?.message || "Could not enroll");
     }
 }
 
