@@ -108,19 +108,19 @@ function AllInstructors() {
 
                               <p>
                                 Gender:{" "}
-                                {instructor.additionalDetails.gender
+                                {instructor.additionalDetails?.gender
                                   ? instructor.additionalDetails.gender
-                                  : "Not define"}
+                                  : "Not defined"}
                               </p>
                               <p>
                                 Mobile No:{" "}
-                                {instructor.additionalDetails.contactNumber
+                                {instructor.additionalDetails?.contactNumber
                                   ? instructor.additionalDetails.contactNumber
                                   : "No Data"}
                               </p>
                               <p>
                                 DOB:{" "}
-                                {instructor.additionalDetails.dateOfBirth
+                                {instructor.additionalDetails?.dateOfBirth
                                   ? instructor.additionalDetails.dateOfBirth
                                   : "No Data"}
                               </p>
@@ -137,7 +137,7 @@ function AllInstructors() {
                     </Tr>
 
 
-                    {instructor.courses.length ? (
+                    {instructor.courses?.length ? (
                       <Tr className="flex gap-x-10 px-6 pb-5">
                         <p className="text-yellow-50 ">Built Courses</p>
                         <div className='grid grid-cols-5 gap-y-5'>
