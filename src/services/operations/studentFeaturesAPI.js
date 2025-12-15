@@ -95,22 +95,31 @@ export async function buyCourse(token, coursesId, userDetails, navigate, dispatc
 
 // ================ send Payment Success Email ================
 export async function enrollFreeCourse(token, courseId, user, navigate, dispatch) {
-    const toastId = toast.loading("Enrolling...");
     try {
-        const response = await apiConnector("POST", COURSE_ENROLL_FREE_API,
-            { courseId },
-            { Authorization: `Bearer ${token}` });
+        const enrollmentPromise = new Promise(async (resolve, reject) => {
+            try {
+                const response = await apiConnector("POST", COURSE_ENROLL_FREE_API,
+                    { courseId },
+                    { Authorization: `Bearer ${token}` }
+                );
+                if (!response.data.success) {
+                    reject(new Error(response.data.message));
+                }
+                resolve(response);
+            } catch (error) {
+                reject(error);
+            }
+        });
 
-        if (!response.data.success) {
-            throw new Error(response.data.message);
-        }
-        toast.dismiss(toastId);
-        toast.success("Enrolled Successfully");
+        await toast.promise(enrollmentPromise, {
+            loading: "Enrolling...",
+            success: "Enrolled Successfully",
+            error: (err) => err.response?.data?.message || err.message || "Could not enroll",
+        });
+
         navigate("/dashboard/enrolled-courses");
     } catch (error) {
-        toast.dismiss(toastId);
         console.log("FREE ENROLLMENT API ERROR............", error);
-        toast.error(error.response?.data?.message || "Could not enroll");
     }
 }
 
