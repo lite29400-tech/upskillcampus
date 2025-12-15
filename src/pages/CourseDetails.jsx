@@ -119,6 +119,13 @@ function CourseDetails() {
     )
   }
 
+  if (!response?.success) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-richblack-800 text-white text-3xl">
+        <p className="text-richblack-5">Error: {response?.message || "Could not fetch course"}</p>
+      </div>
+    )
+  }
 
   // extract course data
   const {
