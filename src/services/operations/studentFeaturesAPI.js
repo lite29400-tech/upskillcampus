@@ -104,14 +104,14 @@ export async function enrollFreeCourse(token, courseId, user, navigate, dispatch
         if (!response.data.success) {
             throw new Error(response.data.message);
         }
-
+        toast.dismiss(toastId);
         toast.success("Enrolled Successfully");
         navigate("/dashboard/enrolled-courses");
     } catch (error) {
+        toast.dismiss(toastId);
         console.log("FREE ENROLLMENT API ERROR............", error);
         toast.error(error.response?.data?.message || "Could not enroll");
     }
-    toast.dismiss(toastId);
 }
 
 async function sendPaymentSuccessEmail(response, amount, token) {
